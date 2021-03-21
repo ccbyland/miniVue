@@ -1,0 +1,24 @@
+var app = require("../app");
+var debug = require("debug")("demo:server");
+var http = require("http");
+var port = normalizePort(process.env.PORT || 7777);
+var server = http.createServer(app.callback());
+server.listen(port);
+server.on("listening", onListening);
+function normalizePort(val) {
+    var port = parseInt(val, 10);
+    if (isNaN(port)) {
+        return val;
+    }
+    if (port >= 0) {
+        return port;
+    }
+
+    return false;
+}
+
+function onListening() {
+    var addr = server.address();
+    var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
+    debug("Listening on " + bind);
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue</title>
+</head>
+
+<body>
+    <div id="app">
+        <div v-text="a"></div>
+    </div>
+    <script src="../platforms/web/runtime/index.js" type="module"></script>
+    <!-- <script src="vue.js" type="module"></script>        -->
+    <script type="module">
+        import Vue from '../platforms/web/runtime/index.js';
+
+        const vm = window.vm = new Vue({
+            el: '#app',
+            data: {
+                a: 10,
+            },
+            methods: {
+                updateA() {
+                    this.a = this.a + 1;
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>
