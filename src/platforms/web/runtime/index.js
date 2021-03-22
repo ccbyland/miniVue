@@ -1,4 +1,4 @@
-import Vue from '../../../core/instance/index.js';
+import Vue from '../../../core/index.js';
 import { query } from '../util/index.js';
 import { mountComponent } from '../../../core/instance/lifecycle.js';
 

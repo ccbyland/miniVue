@@ -11,10 +11,10 @@
     <div id="app">
         <div v-text="a"></div>
     </div>
-    <script src="../platforms/web/runtime/index.js" type="module"></script>
+    <script src="../platforms/web/entry-runtime-with-compiler.js" type="module"></script>
     <!-- <script src="vue.js" type="module"></script>        -->
     <script type="module">
-        import Vue from '../platforms/web/runtime/index.js';
+        import Vue from '../platforms/web/entry-runtime-with-compiler.js';
 
         const vm = window.vm = new Vue({
             el: '#app',
