@@ -1,9 +1,13 @@
 import {
     noop
 } from '../util/index.js';
-import { pushTarget, popTarget } from './dep.js';
-import { queueWatcher } from './scheduler.js';
-import Dep from './dep.js';
+import {
+    pushTarget,
+    popTarget
+} from './dep.js';
+import {
+    queueWatcher
+} from './scheduler.js';
 
 export default class Watcher {
 
@@ -49,26 +53,26 @@ export default class Watcher {
         // (例如 return this.a === 1 ? this.b : this.c 中this.a的值发生变化)
         // 为了避免额外计算, 所以每一次触发get方法时都会重新收集最新的依赖deps
         // 同时对比新旧deps,将过期的watcher从旧的deps中移除
-        if(!this.newDepIds.has(id)){
+        if (!this.newDepIds.has(id)) {
 
             this.newDepIds.add(id);
             this.newDeps.push(dep);
-            
-            if(!this.depIds.has(id)){
+
+            if (!this.depIds.has(id)) {
                 dep.addSub(this);
             }
         }
     }
-    cleanupDeps(){
+    cleanupDeps() {
 
         let i = this.deps.length;
-        while(i--){
+        while (i--) {
             const dep = this.deps[i];
-            if(!this.newDepIds.has(dep.id)){
+            if (!this.newDepIds.has(dep.id)) {
                 dep.removeSub(this);
             }
         }
-        
+
         // 重置 newDepIds
         let temp = this.depIds;
         this.depIds = this.newDepIds;
@@ -88,8 +92,8 @@ export default class Watcher {
             queueWatcher(this);
         }
     }
-    run(){
-        if(this.active){
+    run() {
+        if (this.active) {
             // get会触发render watcher传入的expOrFn
             this.get();
         }

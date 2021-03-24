@@ -3,7 +3,9 @@ export function noop() {}
 export function isObject(obj) {
     return obj !== null && typeof obj === 'object';
 }
-
+export function toString(val) {
+    return val === null ? '' : typeof val === 'object' ? JSON.stringify(val) : String(val);
+}
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key)

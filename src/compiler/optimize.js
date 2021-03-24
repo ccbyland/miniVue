@@ -1,3 +1,3 @@
-export function optimize(){
+export function optimize() {
 
 }

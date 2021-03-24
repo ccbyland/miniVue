@@ -1,10 +1,19 @@
 import Watcher from '../observe/watcher.js';
-import { noop, log } from '../util/index.js';
+import {
+    noop,
+    log
+} from '../util/index.js';
+import {
+    patch
+} from '../vdom/patch.js';
 
 export function lifecycleMixin(Vue) {
 
-    Vue.prototype._update = function () {
+    Vue.prototype._update = function (vnode) {
+
         log('_update');
+        const vm = this;
+        patch(vnode, vm);
     };
 
     Vue.prototype.$forceUpdate = function () {};
@@ -17,16 +26,15 @@ export function initLifecycle() {}
 export function mountComponent(vm, el) {
 
     vm.$el = el;
-    
+
     callHook(vm, 'beforeMount');
 
     const updateComponent = () => {
         vm._update(vm._render());
-        log(`访问了data属性 this.a 建立绑定关系`, vm.a);
     }
 
     new Watcher(vm, updateComponent, noop, {
-        before(){
+        before() {
             callHook(vm, 'beforeUpdate')
         }
     });

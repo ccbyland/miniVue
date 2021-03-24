@@ -1,10 +1,20 @@
-import { initMixin } from './init.js';
-import { stateMixin } from './state.js';
-import { eventsMixin } from './events.js';
-import { lifecycleMixin } from './lifecycle.js';
-import { renderMixin } from './render.js';
+import {
+    initMixin
+} from './init.js';
+import {
+    stateMixin
+} from './state.js';
+import {
+    eventsMixin
+} from './events.js';
+import {
+    lifecycleMixin
+} from './lifecycle.js';
+import {
+    renderMixin
+} from './render.js';
 
-function Vue(options){
+function Vue(options) {
     this._init(options);
 }
 

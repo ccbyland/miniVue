@@ -1,12 +1,12 @@
-export function eventsMixin(Vue){
+export function eventsMixin(Vue) {
 
-    Vue.prototype.$on = function(){};
+    Vue.prototype.$on = function () {};
 
-    Vue.prototype.$off = function(){};
+    Vue.prototype.$off = function () {};
 
-    Vue.prototype.$one = function(){};
+    Vue.prototype.$one = function () {};
 
-    Vue.prototype.$emit = function(){};
+    Vue.prototype.$emit = function () {};
 }
 
-export function initEvents(){}
+export function initEvents() {}

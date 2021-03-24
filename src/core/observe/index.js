@@ -1,8 +1,10 @@
 import Dep from './dep.js';
-import { isObject } from '../util/index.js';
+import {
+    isObject
+} from '../util/index.js';
 export default function observe(value) {
 
-    if(!isObject(value)){
+    if (!isObject(value)) {
         return;
     }
     return new Observer(value);
@@ -34,7 +36,7 @@ export function defineReactive(obj, key) {
             if (Dep.target) {
                 dep.depend();
             }
-            if(childOb){
+            if (childOb) {
                 childOb.dep.depend();
             }
             return val;

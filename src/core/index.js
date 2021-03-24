@@ -1,5 +1,7 @@
 import Vue from './instance/index.js';
-import { initGlobalApi } from './global-api/index.js';
+import {
+    initGlobalApi
+} from './global-api/index.js';
 
 initGlobalApi(Vue);
 

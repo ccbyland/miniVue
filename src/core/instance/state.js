@@ -56,13 +56,13 @@ function initMethods(vm, methods) {
 
     const props = vm.$options.props;
 
-    for(const key in methods){
+    for (const key in methods) {
 
-        if(typeof methods[key] !== 'function'){
+        if (typeof methods[key] !== 'function') {
             warn(`Method ${key} 为 ${methods[key]} 类型`);
         }
 
-        if(props && hasOwn(props, key)){
+        if (props && hasOwn(props, key)) {
             warn(`Method ${key} 已声明为属性`);
         }
         vm[key] = typeof methods[key] !== 'function' ? noop : bind(methods[key], vm);

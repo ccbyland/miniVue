@@ -1,6 +1,6 @@
 export function queueWatcher(watcher) {
 
-    if(watcher.before){
+    if (watcher.before) {
         watcher.before();
     }
     watcher.run();

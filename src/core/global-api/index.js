@@ -3,18 +3,18 @@
  * 
  * @param {*} Vue 
  */
-export function initGlobalApi(Vue){
+export function initGlobalApi(Vue) {
 
     Vue.util = {
-        warn: function(){},
-        extends: function(){},
-        mergeOptions: function(){},
-        defineReactive: function(){},
+        warn: function () {},
+        extends: function () {},
+        mergeOptions: function () {},
+        defineReactive: function () {},
     };
 
-    Vue.set = function(){};
+    Vue.set = function () {};
 
-    Vue.delete = function(){};
+    Vue.delete = function () {};
 
-    Vue.nextTick = function(){};
+    Vue.nextTick = function () {};
 }

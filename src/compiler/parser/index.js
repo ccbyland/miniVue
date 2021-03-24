@@ -19,7 +19,7 @@ export function parse(template, options) {
         start(tag, attrs) {
             const element = createASTElement(tag, attrs);
             // 根节点设置
-            if(!root){
+            if (!root) {
                 root = element;
             }
             // 暂存当前节点，用于子节点的父节点
@@ -33,7 +33,7 @@ export function parse(template, options) {
             const element = stack.pop();
             // 确认当前节点的父节点
             currentParent = stack[stack.length - 1];
-            if(currentParent){
+            if (currentParent) {
                 // 父子双向绑定
                 element.parent = currentParent;
                 currentParent.children.push(element);
@@ -41,7 +41,7 @@ export function parse(template, options) {
         },
         // 文本位置 钩子函数
         chars(text) {
-            if(text.trim()){
+            if (text.trim()) {
                 currentParent.children.push({
                     type: 3,
                     text

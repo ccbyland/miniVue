@@ -1,17 +1,24 @@
-import { log } from '../util/index.js';
+import {
+    log
+} from '../util/index.js';
+import {
+    installRenderHelpers
+} from './render-helpers/index.js';
 
-export function renderMixin(Vue){
+export function renderMixin(Vue) {
 
-    Vue.prototype._render = function(){
-        
+    installRenderHelpers(Vue.prototype);
+    Vue.prototype._render = function () {
         log('_render');
+        const vm = this;
+        return vm.$options.render.call(vm);
     };
 
-    Vue.prototype.$nextTick = function(){};
+    Vue.prototype.$nextTick = function () {};
 }
 
 export function initRender(vm) {
 
-    // vm.$createElement = (a, b, c, d) => createElement(vm, a, b, c, d, true);
-    vm.$createElement = () => {};
+    vm.$slots = {};
+    vm.$scopedSlots = {};
 }
