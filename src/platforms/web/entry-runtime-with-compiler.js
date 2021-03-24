@@ -1,11 +1,14 @@
 import Vue from './runtime/index.js';
-import { compileToFunctions } from './compiler/index.js';
+import { compileToFunctions } from '../../compiler/index.js';
 import { query } from './util/index.js';
 const mount = Vue.prototype.$mount;
 
 Vue.prototype.$mount = function(el){
+    
     el = el && query(el);
     const options = this.$options;
+
+    // 模板优先级 render > template > el
     if(!options.render){
         let template = options.template;
         if(template){
@@ -20,9 +23,7 @@ Vue.prototype.$mount = function(el){
             template = getOuterHTML(el);
         }
         if(template){
-            const { render, staticRenderFns } = compileToFunctions(template, {}, this);
-            options.render = render;
-            options.staticRenderFns = staticRenderFns;
+            options.render = compileToFunctions(template);
         }
     }
     return mount.call(this, el);

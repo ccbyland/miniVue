@@ -17,9 +17,7 @@ export function initLifecycle() {}
 export function mountComponent(vm, el) {
 
     vm.$el = el;
-    if (!vm.$options.render) {
-        vm.$options.render = createEmptyVNode;
-    }
+    
     callHook(vm, 'beforeMount');
 
     const updateComponent = () => {

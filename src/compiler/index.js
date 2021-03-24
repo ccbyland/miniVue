@@ -1,10 +1,9 @@
 import { parse } from './parser/index.js';
 import { optimize } from './optimize.js';
-import { generate } from './codegen/index.js';
-import { createCompilerCreator } from './create-compiler.js';
+import { generate } from './generate/index.js';
 
-export const createCompiler = createCompilerCreator(function baseCompile(template, options){
-
+export function compileToFunctions(template, options = {}) {
+    
     // 解析器 - 将模板解析为AST 
     const ast = parse(template.trim(), options)
 
@@ -14,11 +13,6 @@ export const createCompiler = createCompilerCreator(function baseCompile(templat
     }
 
     // 代码生成器
-    const code = generate(ast, options);
-
-    return {
-        ast,
-        render: code.render,
-        staticRenderFns: code.staticRenderFns
-    }
-});
+    const code = generate(ast);
+    console.error(code);
+}

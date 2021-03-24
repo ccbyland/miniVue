@@ -9,7 +9,8 @@
 
 <body>
     <div id="app">
-        <div v-text="a"></div>
+        <h3 class="c1" v-text="msg"></h3>
+        <span class="c2" @click="updateA" name="n1">hhhhhh</span>
     </div>
     <script src="../platforms/web/entry-runtime-with-compiler.js" type="module"></script>
     <!-- <script src="vue.js" type="module"></script>        -->
@@ -19,7 +20,7 @@
         const vm = window.vm = new Vue({
             el: '#app',
             data: {
-                a: 10,
+                msg: 'Hello',
             },
             methods: {
                 updateA() {

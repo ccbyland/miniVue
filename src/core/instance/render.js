@@ -5,10 +5,6 @@ export function renderMixin(Vue){
     Vue.prototype._render = function(){
         
         log('_render');
-        const vm = this;
-        const render = vm.$options.render;
-        const vnode = render(vm);
-        return vnode;
     };
 
     Vue.prototype.$nextTick = function(){};
