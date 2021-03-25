@@ -1,7 +1,6 @@
 let oldNode;
 
 export function patch(newNode, vm) {
-
     if (!oldNode) {
         oldNode = vm.$el;
     }
@@ -17,18 +16,19 @@ function createElement(vnode) {
 
     const {
         tag,
-        attrs,
+        data,
         children,
         text
     } = vnode;
     // 标签
     if (typeof tag === 'string') {
         vnode.el = document.createElement(tag);
-        updateAttrs(vnode.el, attrs);
-        // 子节点
-        children.map(child => {
+        // 更新属性
+        data && data.attrs && updateAttrs(vnode.el, data.attrs);
+        // 更新子节点
+        children && children.length && children.map(child => {
             vnode.el.appendChild(createElement(child));
-        })
+        });
     } else {
         vnode.el = document.createTextNode(text);
     }

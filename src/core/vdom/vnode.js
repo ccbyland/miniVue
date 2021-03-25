@@ -1,7 +1,7 @@
 export default class VNode {
-    constructor(tag, attrs, children, text) {
+    constructor(tag, data, children, text) {
         this.tag = tag;
-        this.attrs = attrs;
+        this.data = data;
         this.children = children;
         this.text = text;
     }

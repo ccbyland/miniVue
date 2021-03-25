@@ -11839,6 +11839,7 @@
       optimize(ast, options);
     }
     var code = generate(ast, options);
+    console.error(code);
     return {
       ast: ast,
       render: code.render,

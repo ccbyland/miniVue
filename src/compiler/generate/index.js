@@ -53,7 +53,7 @@ function genAttr(attrs = [], tag) {
         }
         attrsStr += `"${name}":${value},`;
     });
-    return `{${attrsStr.slice(0, -1)}}`;
+    return `{attrs:{${attrsStr.slice(0, -1)}}}`;
 }
 
 /**
@@ -66,7 +66,7 @@ function genChildren(children = []) {
     if (!children.length) {
         return '';
     }
-    return children.map(node => getNode(node)).join(',');
+    return `[${children.map(node => getNode(node)).join(',')}]`;
 }
 
 /**
