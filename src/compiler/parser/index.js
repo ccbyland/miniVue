@@ -1,6 +1,9 @@
 import {
     parseHTML
 } from './html-parser.js';
+import {
+    parseText
+} from './text-parser.js';
 
 export function createASTElement(tagName, attrs) {
     return {
@@ -41,11 +44,22 @@ export function parse(template, options) {
         },
         // 文本位置 钩子函数
         chars(text) {
-            if (text.trim()) {
-                currentParent.children.push({
-                    type: 3,
-                    text
-                });
+            text = text.trim();
+            if (text) {
+                const children = currentParent.children;
+                let expression;
+                if (expression = parseText(text)) {
+                    children.push({
+                        type: 2,
+                        expression,
+                        text
+                    });
+                } else {
+                    children.push({
+                        type: 3,
+                        text
+                    });
+                }
             }
         }
     });

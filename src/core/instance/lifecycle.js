@@ -44,6 +44,6 @@ export function mountComponent(vm, el) {
 
 export function callHook(vm, hook) {
 
-    log('===[callHook]===', hook);
+    log(`===[callHook]=== ${hook}`);
 
 }

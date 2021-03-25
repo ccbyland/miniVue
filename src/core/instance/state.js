@@ -3,7 +3,7 @@ import {
     noop,
     hasOwn,
     bind,
-    warn
+    log
 } from '../util/index.js';
 
 export function stateMixin(Vue) {
@@ -59,11 +59,11 @@ function initMethods(vm, methods) {
     for (const key in methods) {
 
         if (typeof methods[key] !== 'function') {
-            warn(`Method ${key} 为 ${methods[key]} 类型`);
+            log(`Method ${key} 为 ${methods[key]} 类型`);
         }
 
         if (props && hasOwn(props, key)) {
-            warn(`Method ${key} 已声明为属性`);
+            log(`Method ${key} 已声明为属性`);
         }
         vm[key] = typeof methods[key] !== 'function' ? noop : bind(methods[key], vm);
     }
@@ -80,7 +80,7 @@ function initData(vm) {
     while (i--) {
         const key = keys[i];
         if (props && hasOwn(props, key)) {
-            warn(`数据属性 ${key} 已声明为属性`);
+            log(`数据属性 ${key} 已声明为属性`);
         } else {
             proxy(vm, '_data', key);
         }

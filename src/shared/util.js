@@ -1,3 +1,5 @@
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 export function noop() {}
 
 export function isObject(obj) {
@@ -6,7 +8,7 @@ export function isObject(obj) {
 export function toString(val) {
     return val === null ? '' : typeof val === 'object' ? JSON.stringify(val) : String(val);
 }
-const hasOwnProperty = Object.prototype.hasOwnProperty;
+
 export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key)
 }
@@ -15,10 +17,12 @@ export function bind(fn, ctx) {
     return fn.bind(ctx);
 }
 
-export function log(msg1 = '', msg2 = '') {
-    console.log('[ Vue Log]: ' + msg1, msg2);
-}
-
-export function warn(msg1 = '', msg2 = '') {
-    console.warn('[ Vue Log]: ' + msg1, msg2);
+export function log(msg, level) {
+    const fn = level ? level : 'info';
+    if (typeof msg === 'object') {
+        const [msg1, msg2] = msg;
+        console[fn](msg1, msg2);
+    } else {
+        console[fn](`%c${level ? '' : '[ Vue Log ]'}`, 'color:red;', msg);
+    }
 }

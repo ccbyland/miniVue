@@ -1,6 +1,6 @@
 // base
-var ncname = "[a-zA-Z_][\\-\\.0-9_a-zA-Z]*";
-var qnameCapture = "((?:" + ncname + "\\:)?" + ncname + ")";
+const ncname = "[a-zA-Z_][\\-\\.0-9_a-zA-Z]*";
+const qnameCapture = "((?:" + ncname + "\\:)?" + ncname + ")";
 // 标签开始位置 <div、<span、... 
 const startTagOpen = new RegExp(("^<" + qnameCapture));
 // 标签结束位置 />
