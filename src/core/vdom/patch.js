@@ -1,7 +1,10 @@
 import VNode from './vnode.js';
 import {
-    diff
-} from './diff.js'
+    patchVnode
+} from './patchVnode.js'
+import {
+    log
+} from '../util/index.js';
 
 /**
  * 打补丁
@@ -11,10 +14,21 @@ import {
  */
 export function patch(oldNode, newNode) {
 
+    // 不存在旧的虚拟节点
     if (oldNode.nodeType === 1) {
         oldNode = new VNode(oldNode.tagName.toLowerCase(), {}, [], undefined, oldNode);
+        const oldElem = oldNode.elm;
+        const parentElm = oldElem.parentNode;
+        const newElm = createElement(newNode);
+        parentElm.insertBefore(newElm, oldElem.nextSibling);
+        parentElm.removeChild(oldElem);
+    // 存在旧的虚拟节点
+    }else{
+        const patches = patchVnode(oldNode, newNode);
+        // parentElm.insertBefore(oldElem, oldNode.elm.nextSibling);
+        // parentElm.removeChild(oldNode.elm);
+        log(['patches', patches]);
     }
-    diff(oldNode, newNode, 0);
 }
 
 function createElement(vnode) {

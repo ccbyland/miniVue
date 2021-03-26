@@ -13,7 +13,7 @@ export function renderMixin(Vue) {
         const vm = this;
         return vm.$options.render.call(vm);
     };
-
+    
     Vue.prototype.$nextTick = function () {};
 }
 

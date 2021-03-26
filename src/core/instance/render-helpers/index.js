@@ -1,6 +1,6 @@
 import {
     createElement
-} from '../../vdom/create-element.js';
+} from '../../vdom/vnode.js';
 import {
     toString
 } from '../../../shared/util.js';

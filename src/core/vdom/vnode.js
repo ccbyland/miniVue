@@ -8,6 +8,10 @@ export default class VNode {
     }
 }
 
+export function createElement(tags, attrs, children) {
+    return new VNode(tags, attrs, children);
+}
+
 export function createTextVNode(text) {
     return new VNode(undefined, undefined, undefined, text);
 }

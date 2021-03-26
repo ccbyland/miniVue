@@ -6,10 +6,9 @@ export const REMOVE = 'REMOVE';
 let patches = {};
 let vnIndex = 0;
 
-export function diff(oldVDom, newNDom) {
+export function patchVnode(oldVDom, newNDom) {
 
-    let index = 0;
-    vNodeWalk(oldVDom, newNDom, index);
+    vNodeWalk(oldVDom, newNDom, vnIndex);
     return patches;
 }
 
@@ -20,9 +19,7 @@ export function diff(oldVDom, newNDom) {
  * @param {*} index 索引
  */
 function vNodeWalk(oldNode, newNode, index) {
-
     let vnPatch = [];
-
     // 节点被删除
     if (!oldNode) {
         vnPatch.push({
@@ -30,17 +27,20 @@ function vNodeWalk(oldNode, newNode, index) {
             index: index
         });
         // 文本节点
-    } else if (typeof oldNode === 'string' && typeof newNode === 'string') {
+    } else if (!oldNode.tag && !newNode.tag) {
+        if (oldNode.text.match(/\n/) && newNode.text.match(/\n/)) {
+            return;
+        }
         // 文本更新
-        if (oldNode != newNode) {
+        if (oldNode.text != newNode.text) {
             vnPatch.push({
                 type: TEXT,
-                index: newNode
+                text: newNode.text
             });
         }
         // 标签属性
     } else if (oldNode.type === newNode.type) {
-        const attrPatch = attrsWalk(oldNode.data.attrs || [], newNode.data.attrs || []);
+        const attrPatch = attrsWalk(oldNode.data, newNode.data);
         // 存在属性变更
         if (Object.keys(attrPatch).length) {
             vnPatch.push({
@@ -48,24 +48,18 @@ function vNodeWalk(oldNode, newNode, index) {
                 attrs: attrPatch
             })
         }
-        debugger
         // 遍历子节点
         childWalk(oldNode.children, newNode.children)
-
         // 节点被替换
     } else {
-
         vnPatch.push({
             type: REPLACE,
             newNode
         });
     }
-
     if (vnPatch.length) {
         patches[index] = vnPatch;
     }
-
-    console.error(patches);
 }
 
 /**
@@ -74,7 +68,10 @@ function vNodeWalk(oldNode, newNode, index) {
  * @param {*} newAttrs 
  * @returns 
  */
-function attrsWalk(oldAttrs, newAttrs) {
+function attrsWalk(oldData = {}, newData = {}) {
+
+    const oldAttrs = oldData.oldAttrs || [];
+    const newAttrs = newData.newAttrs || [];
 
     let attrsPatch = {};
     for (let key in oldAttrs) {
@@ -97,8 +94,8 @@ function attrsWalk(oldAttrs, newAttrs) {
  * @param {*} oldChildren 
  * @param {*} newChildren 
  */
-function childWalk(oldChildren, newChildren) {
+function childWalk(oldChildren = [], newChildren = []) {
     oldChildren.map((c, idx) => {
         vNodeWalk(c, newChildren[idx], ++vnIndex)
-    })
+    });
 }
