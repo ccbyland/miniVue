@@ -1,15 +1,20 @@
-let oldNode;
+import VNode from './vnode.js';
+import {
+    diff
+} from './diff.js'
 
-export function patch(newNode, vm) {
-    if (!oldNode) {
-        oldNode = vm.$el;
+/**
+ * 打补丁
+ * 
+ * @param {*} oldNode 
+ * @param {*} newNode 
+ */
+export function patch(oldNode, newNode) {
+
+    if (oldNode.nodeType === 1) {
+        oldNode = new VNode(oldNode.tagName.toLowerCase(), {}, [], undefined, oldNode);
     }
-    const el = createElement(newNode);
-    const parentElement = oldNode.parentNode;
-
-    parentElement.insertBefore(el, oldNode.nextSibling);
-    parentElement.removeChild(oldNode);
-    oldNode = newNode.el;
+    diff(oldNode, newNode, 0);
 }
 
 function createElement(vnode) {

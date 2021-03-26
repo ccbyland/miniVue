@@ -8,12 +8,22 @@ import {
 } from '../vdom/patch.js';
 
 export function lifecycleMixin(Vue) {
-
     Vue.prototype._update = function (vnode) {
 
         log('_update');
         const vm = this;
-        patch(vnode, vm);
+        // 更新当前旧节点，如果没有则说明第一次更新
+        const prevVnode = vm._vnode;
+        // 更新挂载的节点
+        vm._vnode = vnode;
+
+        // 非首次更新
+        if(prevVnode){
+            patch(prevVnode, vnode);
+        // 首次更新
+        }else{
+            patch(vm.$el, vnode);
+        }
     };
 
     Vue.prototype.$forceUpdate = function () {};

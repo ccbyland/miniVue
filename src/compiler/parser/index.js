@@ -44,22 +44,19 @@ export function parse(template, options) {
         },
         // 文本位置 钩子函数
         chars(text) {
-            text = text.trim();
-            if (text) {
-                const children = currentParent.children;
-                let expression;
-                if (expression = parseText(text)) {
-                    children.push({
-                        type: 2,
-                        expression,
-                        text
-                    });
-                } else {
-                    children.push({
-                        type: 3,
-                        text
-                    });
-                }
+            const children = currentParent.children;
+            let expression;
+            if (expression = parseText(text)) {
+                children.push({
+                    type: 2,
+                    expression,
+                    text
+                });
+            } else {
+                children.push({
+                    type: 3,
+                    text
+                });
             }
         }
     });
