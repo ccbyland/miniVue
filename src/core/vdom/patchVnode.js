@@ -4,11 +4,17 @@ export const REPLACE = 'REPLACE';
 export const REMOVE = 'REMOVE';
 
 let patches = {};
-let vnIndex = 0;
+let nodeIndex = 0;
 
-export function patchVnode(oldVDom, newNDom) {
+/**
+ * 比较新旧节点返回补丁包
+ * @param {*} oldNode 
+ * @param {*} newDom 
+ * @returns 
+ */
+export function patchVNode(oldNode, newNode) {
 
-    vNodeWalk(oldVDom, newNDom, vnIndex);
+    vNodeWalk(oldNode, newNode, nodeIndex);
     return patches;
 }
 
@@ -40,6 +46,7 @@ function vNodeWalk(oldNode, newNode, index) {
         }
         // 标签属性
     } else if (oldNode.type === newNode.type) {
+        // attrPatch格式 {}
         const attrPatch = attrsWalk(oldNode.data, newNode.data);
         // 存在属性变更
         if (Object.keys(attrPatch).length) {
@@ -96,6 +103,6 @@ function attrsWalk(oldData = {}, newData = {}) {
  */
 function childWalk(oldChildren = [], newChildren = []) {
     oldChildren.map((c, idx) => {
-        vNodeWalk(c, newChildren[idx], ++vnIndex)
+        vNodeWalk(c, newChildren[idx], ++nodeIndex)
     });
 }
