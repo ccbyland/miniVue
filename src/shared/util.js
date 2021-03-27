@@ -21,8 +21,8 @@ export function log(msg, level) {
     const fn = level ? level : 'info';
     if (typeof msg === 'object') {
         const [msg1, msg2] = msg;
-        console[fn](msg1, msg2);
+        console[fn](msg1 || '', msg2 || '');
     } else {
-        console[fn](`%c${level ? '' : '[ Vue Log ]'}`, 'color:red;', msg);
+        console[fn](`%c${level ? '' : '[ Vue Log ]'}`, 'color:red;', msg || '');
     }
 }

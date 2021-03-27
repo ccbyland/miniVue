@@ -27,7 +27,12 @@ Vue.prototype.$mount = function (el) {
             template = getOuterHTML(el);
         }
         if (template) {
-            options.render = compileToFunctions(template);
+            const {
+                render,
+                staticRenderFns
+            } = compileToFunctions(template);
+            options.render = render;
+            options.staticRenderFns = staticRenderFns;
         }
     }
     return mount.call(this, el);

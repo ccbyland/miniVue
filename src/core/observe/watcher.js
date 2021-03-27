@@ -16,6 +16,7 @@ export default class Watcher {
         this.vm = vm;
         if (options) {
             this.lazy = !!options.lazy;
+            this.before = options.before;
         } else {
             this.lazy = false;
         }

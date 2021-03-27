@@ -26,10 +26,15 @@ function createCompilerCreator(template, options = {}) {
     const code = generate(ast);
     log(['generate', code]);
 
-    // 返回render函数
-    return new Function(`with(this){ return ${code}}`);
+    // 返回code
+    return code;
 }
 
 export function compileToFunctions(template) {
-    return createCompilerCreator(template);
+
+    const code = createCompilerCreator(template);
+    return {
+        render: code.render,
+        staticRenderFns: code.staticRenderFns
+    }
 }

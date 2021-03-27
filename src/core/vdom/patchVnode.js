@@ -25,6 +25,11 @@ export function patchVNode(oldNode, newNode) {
  * @param {*} index 索引
  */
 function vNodeWalk(oldNode, newNode, index) {
+
+    // 静态节点直接跳过
+    if (oldNode.isStatic && newNode.isStatic) {
+        return;
+    }
     let vnPatch = [];
     // 节点被删除
     if (!oldNode) {
@@ -44,7 +49,7 @@ function vNodeWalk(oldNode, newNode, index) {
                 text: newNode.text
             });
         }
-        // 标签属性
+        // 元素节点
     } else if (oldNode.type === newNode.type) {
         // attrPatch格式 {}
         const attrPatch = attrsWalk(oldNode.data, newNode.data);

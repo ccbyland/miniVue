@@ -58,7 +58,6 @@ function markStaticRoots(node) {
  * @returns 
  */
 function isStatic(node) {
-
     // 动态文本
     if (node.type == 2) {
         return false;
@@ -68,8 +67,7 @@ function isStatic(node) {
     if (node.type == 3) {
         return true;
     }
-
-    // 标签 - 判断条件 还未实现，所以暂时写死false
+    // 标签 - 判断条件 还未实现，所以暂时写死true
 
     // 1.不能使用动态绑定语法，也就是说标签上不能有以 v-、@、:开头的属性
     // 2.不能使用v-if、v-for或者v-else指令
@@ -77,5 +75,5 @@ function isStatic(node) {
     // 4.不能是组件，即标签名必须是保留标签，例如div是保留标签，list不是保留标签
     // 5.当前节点的父节点不能是带v-for指令的template标签
     // 6.节点中不存在动态属性节点才有的属性，也就是说从type、tag、attrsList、attrsMap、parent等这个范围内没找到
-    return false;
+    return true;
 }

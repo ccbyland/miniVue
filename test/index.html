@@ -11,19 +11,32 @@
     <div id="app">
         <h3 style="color:red;font-size:16px;" class="c1">Vue2.0 源码解密</h3>
         <div>您好{{name}}，{{welcome}} 一起来学习</div>
-        <span class="c2" name="n1">点赞</span>
+        <ul class="c2" name="n1">
+            <li>架构设计</li>
+            <li>创建Vue实例时做了什么</li>
+            <li>变化侦测做了什么</li>
+            <li>模板编译做了什么</li>
+            <li>异步更新做了什么</li>
+        </ul>
         <label class="c3" name="n2"></label>
     </div>
     <script src="../platforms/web/entry-runtime-with-compiler.js" type="module"></script>
     <!-- <script src="vue.js" type="module"></script>        -->
     <script type="module">
         import Vue from '../platforms/web/entry-runtime-with-compiler.js';
+        import { log } from '/shared/util.js';
 
         const vm = window.vm = new Vue({
             el: '#app',
             data: {
                 name: 'Jeffrey',
                 welcome: '欢迎'
+            },
+            mounted() {
+                log(['1.5秒后自动修改`name`属性']);
+                setTimeout(()=>{
+                    this.name = '【Tiffany】';
+                }, 1500);
             },
             methods: {
                 updateA() {

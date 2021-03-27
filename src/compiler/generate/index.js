@@ -9,17 +9,36 @@
  * @param {*} ast 
  */
 export function generate(ast) {
-    return ast ? genElement(ast) : '_c("div")'
+
+    const state = new CodegenState();
+    const code = ast ? genElement(ast, state) : '_c("div")';
+    return {
+        render: new Function(`with(this){ return ${code}}`),
+        staticRenderFns: state.staticRenderFns
+    }
 }
 
+function CodegenState() {
+    this.staticRenderFns = [];
+}
 /**
  * 构造标签节点
  * 
  * @param {*} el 
  * @returns 
  */
-function genElement(el) {
-    return `_c("${el.tag}",${genAttr(el.attrs,el.tag)},${genChildren(el.children)})`;
+function genElement(el, state) {
+    // 是否是静态根节点
+    if (el.staticRoot && !el.staticProcessed) {
+        return genStatic(el, state);
+    }
+    return `_c("${el.tag}",${genAttr(el.attrs,el.tag)},${genChildren(el.children, state)})`;
+}
+
+function genStatic(el, state) {
+    el.staticProcessed = true;
+    state.staticRenderFns.push(new Function(`with(this){return ${genElement(el, state)}}`));
+    return `_m(${state.staticRenderFns.length - 1})`;
 }
 
 /**
@@ -62,11 +81,11 @@ function genAttr(attrs = [], tag) {
  * @param {*} children 
  * @returns 
  */
-function genChildren(children = []) {
+function genChildren(children = [], state) {
     if (!children.length) {
         return '';
     }
-    return `[${children.map(node => getNode(node)).join(',')}]`;
+    return `[${children.map(node => getNode(node, state)).join(',')}]`;
 }
 
 /**
@@ -74,10 +93,10 @@ function genChildren(children = []) {
  * @param {*} node 
  * @returns 
  */
-function getNode(node) {
+function getNode(node, state) {
     // 标签
     if (node.type == 1) {
-        return genElement(node);
+        return genElement(node, state);
         // 文本
     } else {
         return getText(node);

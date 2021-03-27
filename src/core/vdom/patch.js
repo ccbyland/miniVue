@@ -16,6 +16,7 @@ import {
  * @param {*} newNode 
  */
 export function patch(oldNode, newNode) {
+
     // 不存在旧的虚拟节点
     if (oldNode.nodeType === 1) {
         // 将真实节点转为虚拟节点
@@ -31,7 +32,7 @@ export function patch(oldNode, newNode) {
         // 删除旧的真实节点
         parentElm.removeChild(oldElm);
 
-        log(['patch', '非首次']);
+        log(['patch', '首次']);
         // 存在旧的虚拟节点
     } else {
         // 直接diff 新旧虚拟节点

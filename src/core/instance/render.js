@@ -9,11 +9,10 @@ export function renderMixin(Vue) {
 
     installRenderHelpers(Vue.prototype);
     Vue.prototype._render = function () {
-        log('_render');
         const vm = this;
         return vm.$options.render.call(vm);
     };
-    
+
     Vue.prototype.$nextTick = function () {};
 }
 

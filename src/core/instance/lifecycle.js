@@ -10,7 +10,6 @@ import {
 export function lifecycleMixin(Vue) {
     Vue.prototype._update = function (vnode) {
 
-        log('_update');
         const vm = this;
         // 更新当前旧节点，如果没有则说明第一次更新
         const prevVnode = vm._vnode;
@@ -18,10 +17,12 @@ export function lifecycleMixin(Vue) {
         vm._vnode = vnode;
 
         // 非首次更新
-        if(prevVnode){
+        if (prevVnode) {
             patch(prevVnode, vnode);
-        // 首次更新
-        }else{
+            // 生命周期钩子 - created
+            callHook(vm, 'updated');
+            // 首次更新
+        } else {
             patch(vm.$el, vnode);
         }
     };
@@ -49,11 +50,12 @@ export function mountComponent(vm, el) {
         }
     });
 
-    return;
+    callHook(vm, 'mounted')
+    return vm;
 }
 
 export function callHook(vm, hook) {
-
     log(`===[callHook]=== ${hook}`);
-
+    const expr = vm.$options[hook];
+    typeof expr === 'function' && vm.$options[hook].call(vm);
 }

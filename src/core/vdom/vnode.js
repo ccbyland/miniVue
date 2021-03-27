@@ -5,6 +5,7 @@ export default class VNode {
         this.children = children;
         this.text = text;
         this.elm = elm;
+        this.isStatic = false;
     }
 }
 
