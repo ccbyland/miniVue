@@ -32,7 +32,7 @@ export function patch(oldNode, newNode) {
         // 删除旧的真实节点
         parentElm.removeChild(oldElm);
 
-        log(['patch', '首次']);
+        log(['【打补丁】patch', '首次']);
         // 存在旧的虚拟节点
     } else {
         // 直接diff 新旧虚拟节点
@@ -40,7 +40,7 @@ export function patch(oldNode, newNode) {
         log(['patches', patches]);
         // 将真实的旧节点和补丁包传给doPatch开始打补丁
         doPatch(oldNode.el, patches);
-        log(['patch', '非首次']);
+        log(['【打补丁】patch', '非首次']);
     }
 }
 

@@ -23,6 +23,6 @@ export function log(msg, level) {
         const [msg1, msg2] = msg;
         console[fn](msg1 || '', msg2 || '');
     } else {
-        console[fn](`%c${level ? '' : '[ Vue Log ]'}`, 'color:red;', msg || '');
+        console[fn](`%c${level ? '' : '【【 Vue Log 】】'}`, 'color:green;', msg || '');
     }
 }

@@ -15,16 +15,16 @@ function createCompilerCreator(template, options = {}) {
 
     // 解析器 - 将模板解析为AST 
     const ast = parse(template.trim(), options);
-    log(['parse', ast]);
+    log(['【解析器】parse', ast]);
     // 优化器 - 遍历AST标记静态节点
     if (options.optimize !== false) {
         optimize(ast, options);
     }
-    log(['optimize', ast]);
+    log(['【优化器】optimize', ast]);
 
     // 代码生成器
     const code = generate(ast);
-    log(['generate', code]);
+    log(['【代码生成器】generate', code]);
 
     // 返回code
     return code;
